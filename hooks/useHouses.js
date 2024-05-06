@@ -1,34 +1,27 @@
 import { useState, useEffect } from 'react';
-
-const houseArray = [
-  {
-    id: 1,
-    address: '12 Valley of Kings, Geneva',
-    country: 'Switzerland',
-    price: 900000,
-  },
-  {
-    id: 2,
-    address: '89 Road of Forks, Bern',
-    country: 'Switzerland',
-    price: 500000,
-  },
-];
+import loadingStatus from '@/helpers/loadingStatus';
 
 const useHouses = () => {
-  const [houses, setHouses] = useState(houseArray);
+  const [houses, setHouses] = useState([]);
+  const [loadingState, setLoadingState] = useState(loadingStatus.isLoading);
 
   useEffect(() => {
     const fetchHouses = async () => {
-      const response = await fetch(`/houses.json`);
-      const data = await response.json();
-      const houses = data.houses;
-      setHouses(houses);
+      setLoadingState(loadingStatus.isLoading);
+      try {
+        const response = await fetch(`/houses.json`);
+        const data = await response.json();
+        const houses = data.houses;
+        setHouses(houses);
+        setLoadingState(loadingStatus.loaded);
+      } catch {
+        setLoadingState(loadingState.hasErrored);
+      }
     };
     fetchHouses();
   }, []);
 
-  return { houses, setHouses };
+  return { houses, setHouses, loadingState };
 };
 
 export default useHouses;
