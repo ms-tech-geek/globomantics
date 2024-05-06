@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { navigationContext } from './app';
 
 const House = () => {
-  const { param } = useContext(navigationContext);
+  const { param: house } = useContext(navigationContext);
   console.log(`house`, param);
   return (
     <div className="row">
