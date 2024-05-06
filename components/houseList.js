@@ -1,32 +1,8 @@
-import { useState, useEffect } from 'react';
+import useHouses from '@/hooks/useHouses';
 import HouseRow from './houseRow';
 
-const houseArray = [
-  {
-    id: 1,
-    address: '12 Valley of Kings, Geneva',
-    country: 'Switzerland',
-    price: 900000,
-  },
-  {
-    id: 2,
-    address: '89 Road of Forks, Bern',
-    country: 'Switzerland',
-    price: 500000,
-  },
-];
-
 const HouseList = ({ selectHouse }) => {
-  const [houses, setHouses] = useState(houseArray);
-
-  useEffect(() => {
-    const fetchHouses = async () => {
-      await fetch(`/houses.json`)
-        .then((response) => response.json())
-        .then((data) => setHouses(data.houses));
-    };
-    fetchHouses();
-  }, []);
+  const { houses, setHouses } = useHouses();
 
   const addHouse = () => {
     setHouses([
