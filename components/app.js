@@ -6,14 +6,15 @@ import ComponentPicker from './componentPicker';
 const navigationContext = createContext(navValues.home);
 
 const App = () => {
+  const navigate = useCallback((navTo, param) => {
+    setNav({ current: navTo, param, navigate });
+  }, []);
+
   const [nav, setNav] = useState({
     current: navValues.home,
     navigate,
   });
-  const navigate = useCallback(
-    (navTo) => setNav({ current: navTo, navigate }),
-    []
-  );
+
   return (
     <navigationContext.Provider value={{ nav, navigate }}>
       <Banner>Providing houser all over the world</Banner>
