@@ -16,7 +16,7 @@ const houseArray = [
   },
 ];
 
-const HouseList = () => {
+const HouseList = ({ selectHouse }) => {
   const [houses, setHouses] = useState(houseArray);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const HouseList = () => {
         </thead>
         <tbody>
           {houses.map((house) => (
-            <HouseRow key={house.id} house={house} />
+            <HouseRow key={house.id} house={house} selectHouse={selectHouse} />
           ))}
         </tbody>
       </table>
